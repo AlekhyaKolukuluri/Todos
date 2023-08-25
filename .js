@@ -2,6 +2,8 @@ let todoItemsContainer = document.getElementById("todoItemsContainer");
 let addTodoButton = document.getElementById("addTodoButton");
 let saveTodoButton = document.getElementById("saveTodoButton");
 
+
+// getting the request from local storage and converting it into an object 
 function getTodoListFromLocalStorage() {
     let stringifiedTodoList = localStorage.getItem("todoList");
     let parsedTodoList = JSON.parse(stringifiedTodoList);
@@ -15,10 +17,13 @@ function getTodoListFromLocalStorage() {
 let todoList = getTodoListFromLocalStorage();
 let todosCount = todoList.length;
 
+
 saveTodoButton.onclick = function() {
     localStorage.setItem("todoList", JSON.stringify(todoList));
 };
 
+
+// adding the user input values as todos
 function onAddTodo() {
     let userInputElement = document.getElementById("todoUserInput");
     let userInputValue = userInputElement.value;
@@ -40,10 +45,13 @@ function onAddTodo() {
     userInputElement.value = "";
 }
 
+// adding an event listener to the plus button
 addTodoButton.onclick = function() {
     onAddTodo();
 };
 
+
+// givving a unique id to each todo
 function onTodoStatusChange(checkboxId, labelId, todoId) {
     let checkboxElement = document.getElementById(checkboxId);
     let labelElement = document.getElementById(labelId);
@@ -69,6 +77,8 @@ function onTodoStatusChange(checkboxId, labelId, todoId) {
 
 }
 
+
+// removing the todo from local storage 
 function onDeleteTodo(todoId) {
     let todoElement = document.getElementById(todoId);
     todoItemsContainer.removeChild(todoElement);
@@ -85,6 +95,8 @@ function onDeleteTodo(todoId) {
     todoList.splice(deleteElementIndex, 1);
 }
 
+
+// creating a todo
 function createAndAppendTodo(todo) {
     let todoId = "todo" + todo.uniqueNo;
     let checkboxId = "checkbox" + todo.uniqueNo;
@@ -136,6 +148,8 @@ function createAndAppendTodo(todo) {
     deleteIconContainer.appendChild(deleteIcon);
 }
 
+
+// appending the todos lists to the div container
 for (let todo of todoList) {
     createAndAppendTodo(todo);
 }
